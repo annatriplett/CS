@@ -1,0 +1,225 @@
+import random 
+
+def reverse_string(string):
+    '''
+    takes the users words and prints the reverse
+    
+    Args:
+         string (str): word or phrase 
+    Returns:
+        str: string reversed  
+    '''    
+    return string[::-1]
+
+def count_vowels(string):
+    '''
+    takes the users words and prints the amount of vowels
+    
+     Args:
+        string (str): word or phrase  
+    Returns:
+        int: total vowels in string 
+    '''
+    vowels = ['a', 'e', 'i', 'o', 'u','A', 'E', 'I', 'O', 'U'] 
+    counts = {vowel: 0 for vowel in vowels}
+
+    for char in string:
+        lower_char = char.lower()
+        if lower_char in counts:
+            counts[lower_char] += 1 
+    return counts
+
+
+def count_consonant(string):
+    '''
+    takes the users words and prints the amount of consonants 
+    
+     Args:
+        string (str): word or phrase  
+    Returns:
+        int: total vowels in string 
+    '''
+    consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x','z','B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X','Z']
+    counts = {consonants: 0 for consonants in consonants}
+
+    for char in string:
+        lower_char = char.lower()
+        if lower_char in counts:
+            counts[lower_char] += 1 
+    return counts
+
+def lower(name):
+
+    '''
+    takes a name and replaces a the uppercase letters with corrosponding lowercase letters
+    
+    Args:
+        string (str): word or phrase 
+    Returns:
+        str: the replacement, new word all lowercase
+    '''
+
+    name_out = ""
+
+    for letter in name: 
+        if ord(letter)>64 and ord (letter)<91:
+            num = ord(letter)
+            num = num + 32 
+            letter = chr(num)
+            name_out = name_out + letter 
+        else:
+            name_out = name_out + letter
+    return name_out 
+
+def upper(name):
+ 
+    '''
+    takes a name and replaces a the lowercase letters with corrosponding uppercase letters
+    
+    Args:
+        string (str): word or phrase 
+    Returns:
+        str: the replacement, new word all uppercase
+    '''
+
+
+    name_out = ""
+
+    for letter in name: 
+        if ord(letter)>96 and ord (letter)<122:
+            num = ord(letter)
+            num = num - 32 
+            letter = chr(num)
+            name_out = name_out + letter 
+        else:
+            name_out = name_out + letter
+    return name_out 
+
+
+def replace_character(string, old_character, new_character):
+    '''
+    takes a word and replaces a letter with another letter
+    
+    Args:
+        string (str): Word that is to be replaced
+        old_character (str): The letter getting replaced
+        new_character (str): The letter now going into the word
+    Returns:
+        str: the replacement, new word (if the word has L, replaces it with D)
+    '''
+    new_string = ''
+
+    for char in string:
+        if char == old_character:
+            new_string += new_character
+        else:
+            new_string += char
+    return new_string
+
+def is_palindrome(string):
+    '''
+    takes the users words and sees if it is a palindrome
+    
+    Args:
+        string (str): word or phrase 
+    Returns:
+        bool: True/False depending on if string is the same when it is reversed 
+    '''
+    return string == reverse_string(string)
+
+def get_initials(name):
+    '''
+    takes the users full name and prints the first letter of each words, their initials
+    
+    Args:
+        fullname (str):  fullname (first, middle, Last)
+    Returns:
+        str: the first letter of each name  
+    '''
+    name_list = name.split()
+    initials = ''
+
+    for name in name_list:
+        initials += name[0]
+    return initials
+
+def is_title(string):
+    '''
+    takes the users words and prints the amount of vowels
+    
+     Args:
+        string (str): word or phrase  
+    Returns:
+        int: total vowels in string 
+    '''
+    title = ['Dr','Sir','Ms','Mrs','Miss','Esq','Ph.d',]
+    
+
+    for char in string:
+        if char in title:   
+            return True
+        else:
+            return False 
+   
+def first_name(name):
+
+    output = ""
+
+    for letter in name:
+        if letter == " ":
+            break 
+        else:
+            output = output + letter          
+    return output
+            
+def in_list(array, element):
+    '''
+    Determines whether the number is in the list 
+    
+     Args:
+        array (list): someting from the list 
+        element (any): something not in the list 
+    Returns:
+        bool: True/False based on if element is in array  
+    '''
+    return element in array
+
+
+
+def main():
+
+    name = input("Enter Your Fullname")
+
+
+    while True:
+            option = input('What would you like to do: 1. Reverse your name!, 2. Number of vowels!, 3. Number of Consonants!, 4. Replace a character! 5.Is it a palindrome?, 6. Return your Initials! 7.Is there a title/distinction? 8. Convert to lower case 9. Convert to upper case 10. Display first name 11. Do you have a title distinction')
+
+            if option =='1':
+                print(reverse_string(name))
+            elif option =='2':
+                print(count_vowels(name))
+            elif option =='3':
+                print(count_consonant(name))
+            elif option =='4':
+                old_character = input('Pick letter in word to be replaced')
+                new_character = input('Pick letter to replace old letter')
+                print(replace_character (name, old_character, new_character))
+            elif option =='5':
+                print(is_palindrome(name))
+            elif option =='6':
+                print(get_initials(name))
+            elif option =='7':
+                print(is_title(name))
+            elif option =='8':
+                print(lower(name))
+            elif option =='9':
+                print(upper(name))
+            elif option =='10':
+                print(first_name(name))
+            elif option =='11':
+                title = ['Dr.','Sir','Esq','Ph.d','Mr.','Ms.','Miss.','Mrs.']
+                print(in_list(title, name))
+            else:
+                print('invalid')
+
+main()
