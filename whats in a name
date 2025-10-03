@@ -1,8 +1,16 @@
+'''
+Author: Anna Triplett 
+Due date: 9/30/2025 
+Bugs: Limited number of titles(does not include all possible titles only a selected amount)
+Bonus: Replace a character 
+Sources: Ms.Marciano, Mr.Campbell
+Log: 1.0 initial release
+'''
 import random 
 
 def reverse_string(string):
     '''
-    takes the users words and prints the reverse
+    Description: takes the users words and prints the reverse
     
     Args:
          string (str): word or phrase 
@@ -11,7 +19,8 @@ def reverse_string(string):
     '''    
     return string[::-1]
 
-def count_vowels(string):
+    
+def total_vowels(string):
     '''
     takes the users words and prints the amount of vowels
     
@@ -21,32 +30,32 @@ def count_vowels(string):
         int: total vowels in string 
     '''
     vowels = ['a', 'e', 'i', 'o', 'u','A', 'E', 'I', 'O', 'U'] 
-    counts = {vowel: 0 for vowel in vowels}
-
+    total = 0
+    #For each letter (character) in the name, it checks if it is a vowel from the list above and adds it to the total
     for char in string:
-        lower_char = char.lower()
-        if lower_char in counts:
-            counts[lower_char] += 1 
-    return counts
+        if char in vowels:
+            total += 1 
+    return total
 
 
-def count_consonant(string):
+
+def total_consonant(string):
     '''
-    takes the users words and prints the amount of consonants 
+    takes the users words and prints the amount of vowels
     
      Args:
         string (str): word or phrase  
     Returns:
         int: total vowels in string 
     '''
-    consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x','z','B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X','Z']
-    counts = {consonants: 0 for consonants in consonants}
-
+    consonants =  ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x','z', 'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X','Z']
+    total = 0
+  #For each letter (character) in the name, it checks if it is a vowel from the list above and adds it to the total
     for char in string:
-        lower_char = char.lower()
-        if lower_char in counts:
-            counts[lower_char] += 1 
-    return counts
+        if char in consonants:
+            total += 1 
+    return total
+
 
 def lower(name):
 
@@ -54,21 +63,21 @@ def lower(name):
     takes a name and replaces a the uppercase letters with corrosponding lowercase letters
     
     Args:
-        string (str): word or phrase 
+        string (name): fullname
     Returns:
-        str: the replacement, new word all lowercase
+        str: the replacement, fullname all lowercase
     '''
 
     name_out = ""
-
+    
     for letter in name: 
-        if ord(letter)>64 and ord (letter)<91:
-            num = ord(letter)
-            num = num + 32 
-            letter = chr(num)
-            name_out = name_out + letter 
+        if ord(letter) > 64 and ord (letter) < 91:#Takes from the ascii table and checks to see if the letters are uppercase from the set of numbers given 
+            num = ord(letter)#converts letters to numbers 
+            num += 32 #Turns the word into lowercase letters 
+            letter = chr(num)#converts number back to letters 
+            name_out += letter #Puts the letters back into place(the orginal word)
         else:
-            name_out = name_out + letter
+            name_out += letter
     return name_out 
 
 def upper(name):
@@ -77,24 +86,21 @@ def upper(name):
     takes a name and replaces a the lowercase letters with corrosponding uppercase letters
     
     Args:
-        string (str): word or phrase 
+        string (name): fullname
     Returns:
         str: the replacement, new word all uppercase
     '''
-
-
     name_out = ""
-
+    
     for letter in name: 
-        if ord(letter)>96 and ord (letter)<122:
-            num = ord(letter)
-            num = num - 32 
-            letter = chr(num)
-            name_out = name_out + letter 
+        if ord(letter) > 96 and ord (letter) < 122:#Takes from the ascii table and checks to see if the letters are lowercase from the set of numbers given 
+            num = ord(letter)#converts letters to numbers 
+            num -= 32 #Turns the word into uppercase letters 
+            letter = chr(num)#converts number back to letters 
+            name_out += letter #Puts the letters back into place(the orginal word)
         else:
-            name_out = name_out + letter
+            name_out += letter
     return name_out 
-
 
 def replace_character(string, old_character, new_character):
     '''
@@ -108,7 +114,7 @@ def replace_character(string, old_character, new_character):
         str: the replacement, new word (if the word has L, replaces it with D)
     '''
     new_string = ''
-
+    #For each letter (character) in the name, it changes the old character with the new character
     for char in string:
         if char == old_character:
             new_string += new_character
@@ -127,6 +133,85 @@ def is_palindrome(string):
     '''
     return string == reverse_string(string)
 
+def get_names(fullname):
+    '''
+    makes a split function for your first,middle, and last name 
+    
+    Args:
+        string (fullname): inputted fullname
+    Returns:
+        str: A list of names 
+    '''
+    names = []
+    name = ''
+    #Goes through each character in the inputted word, if it is a space then it splits the names and re-inputs it as an array 
+    for letter in fullname:
+        if letter == " ":#If the character in the fullname is a space 
+            names.append(name)#Splits fullname (first, middle,last)
+            name = ''#Sets the variable as empty 
+        else:
+            name += letter#Adds the letters the the string 
+    names.append(name)#Adds string to list of names 
+    return names
+
+def remove_title(name):
+    '''
+    removes the title of a name 
+    
+    Args:
+        string (name): fullname
+    Returns:
+        str: names without title 
+    '''
+    names = get_names(name)
+    titles = ['Dr.','Sir','Esq','Ph.d','Rev.']
+    #if an element from titles is in the fullname, it removes it 
+    for title in titles:
+        if title in names:
+            names.remove(title)
+    return ' '.join(names)
+
+
+
+def first_name(name):
+    '''
+    Uses get_names to pull out first element of the list 
+    
+    Args:
+        string (name): fullname
+    Returns:
+        str: First name 
+    '''
+    name = remove_title(name)#runs remove_title function which removes the title from the name 
+    fullname = get_names(name)
+    return fullname[0]#Returns the first word, until the first space 
+
+def middle_name(name):
+    '''
+    Uses get_names to pull out middle element of the list 
+    
+    Args:
+        string (name): fullname
+    Returns:
+        str: middle name
+    '''
+    name = remove_title(name)#runs remove_title function which removes the title from the name 
+    fullname = get_names(name)
+    return ' '. join(fullname[1:-1])#Goes through each character, start to end, and relizes the spaces, returning the word from the first space to the second 
+
+def last_name(name):
+    '''
+    Uses get_names to pull out last element of the list 
+    
+    Args:
+        string (name): fullname
+    Returns:
+        str: last name 
+    '''
+    name = remove_title(name)#runs remove_title function which removes the title from the name 
+    fullname = get_names(name)
+    return fullname[-1] #Goes through each character, start to end, and relizes the spaces, returning the word from the last space to the end  
+
 def get_initials(name):
     '''
     takes the users full name and prints the first letter of each words, their initials
@@ -136,70 +221,72 @@ def get_initials(name):
     Returns:
         str: the first letter of each name  
     '''
-    name_list = name.split()
+    name = remove_title(name)#runs remove_title function which removes the title from the name 
+    name_list = get_names(name)
     initials = ''
-
+    #Takes the first character in each word from get names and returns them 
     for name in name_list:
         initials += name[0]
     return initials
-
-def is_title(string):
-    '''
-    takes the users words and prints the amount of vowels
-    
-     Args:
-        string (str): word or phrase  
-    Returns:
-        int: total vowels in string 
-    '''
-    title = ['Dr','Sir','Ms','Mrs','Miss','Esq','Ph.d',]
-    
-
-    for char in string:
-        if char in title:   
-            return True
-        else:
-            return False 
-   
-def first_name(name):
-
-    output = ""
-
-    for letter in name:
-        if letter == " ":
-            break 
-        else:
-            output = output + letter          
-    return output
-            
-def in_list(array, element):
+        
+def get_title(name):
     '''
     Determines whether the number is in the list 
     
      Args:
+        string (name): fullname
         array (list): someting from the list 
         element (any): something not in the list 
     Returns:
         bool: True/False based on if element is in array  
     '''
-    return element in array
+    titles = ['Dr.','Sir','Esq','Ph.d','Rev.']
+    #For each word in the name, it sees if a title is in the word and returns a boolean 
+    for title in titles:
+        if title in get_names(name):
+            return True
+    return False
+            
+def hyphen(full_name):
+    '''
+    Determines whether there is a hyphen in the last name 
+    
+     Args:
+        fullname (str):  Last name 
+    Returns:
+        bool: True/False based on if element is in array  
+    '''
+    #For each word in the name, it sees if a hyphen is in the word and returns a boolean 
+    return "-" in last_name(full_name)
 
-
+def shuffle_random(name):
+    '''
+    Modifys array to create a random name (mix up letters)
+    
+     Args:
+        string (name): fullname
+    Returns:
+        str. random name 
+    '''
+    
+    names = get_names(name)
+    name = list(first_name(names))
+    random.shuffle(name)#Shuffles the characters
+    return ''.join(name)#Joins back the character to make a new word (mixed up)
+    
 
 def main():
-
-    name = input("Enter Your Fullname")
-
+    name = input("Enter Your Fullname: ")
 
     while True:
-            option = input('What would you like to do: 1. Reverse your name!, 2. Number of vowels!, 3. Number of Consonants!, 4. Replace a character! 5.Is it a palindrome?, 6. Return your Initials! 7.Is there a title/distinction? 8. Convert to lower case 9. Convert to upper case 10. Display first name 11. Do you have a title distinction')
+            option = input('What would you like to do:\n 1. Reverse your name!\n 2. Total Number of vowels!\n 3. Total Number of Consonants!\n 4. Replace a character!\n 5.Is it a palindrome?\n 6. Return your Initials!\n 7. Convert to lower case\n 8. Convert to upper case\n 9. Display first name\n 10. Display middle name\n 11. Display last name\n 12. Do you have a title distinction\n 13.If last name contains a hyphen\n 46. Generate random letters\n Enter Option Here: ')
 
             if option =='1':
                 print(reverse_string(name))
             elif option =='2':
-                print(count_vowels(name))
+                print(total_vowels(name))
             elif option =='3':
-                print(count_consonant(name))
+                print(total_consonant(name))
             elif option =='4':
                 old_character = input('Pick letter in word to be replaced')
                 new_character = input('Pick letter to replace old letter')
@@ -209,17 +296,22 @@ def main():
             elif option =='6':
                 print(get_initials(name))
             elif option =='7':
-                print(is_title(name))
-            elif option =='8':
                 print(lower(name))
-            elif option =='9':
+            elif option =='8':
                 print(upper(name))
-            elif option =='10':
+            elif option =='9':
                 print(first_name(name))
+            elif option =='10':
+                print(middle_name(name))
             elif option =='11':
-                title = ['Dr.','Sir','Esq','Ph.d','Mr.','Ms.','Miss.','Mrs.']
-                print(in_list(title, name))
+                print(last_name(name))
+            elif option =='12':
+                print(get_title(name))
+            elif option =='13':
+                print(hyphen(name))
+            elif option =='14':
+                print(shuffle_random(name))
             else:
                 print('invalid')
-
 main()
+
